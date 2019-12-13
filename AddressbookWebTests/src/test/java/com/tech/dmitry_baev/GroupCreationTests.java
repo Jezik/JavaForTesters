@@ -14,7 +14,7 @@ public class GroupCreationTests {
     public void setUp() {
         driver = new ChromeDriver();
         driver.get("http://localhost/addressbook/");
-        login();
+        login("admin", "secret");
     }
 
     @After
@@ -26,7 +26,7 @@ public class GroupCreationTests {
     public void createGroup() {
         gotoGroupCreation();
         initGroupCreation();
-        fillGroupForm();
+        fillGroupForm(new GroupData("test1", "test2", "test3"));
         submitGroupCreation();
         returnToGroupPage();
     }
@@ -47,19 +47,19 @@ public class GroupCreationTests {
         driver.findElement(By.linkText("groups")).click();
     }
 
-    private void fillGroupForm() {
+    private void fillGroupForm(GroupData groupData) {
         driver.findElement(By.name("group_name")).click();
-        driver.findElement(By.name("group_name")).sendKeys("test1");
+        driver.findElement(By.name("group_name")).sendKeys(groupData.getGroupName());
         driver.findElement(By.name("group_header")).click();
-        driver.findElement(By.name("group_header")).sendKeys("test2");
+        driver.findElement(By.name("group_header")).sendKeys(groupData.getGroupHeader());
         driver.findElement(By.name("group_footer")).click();
-        driver.findElement(By.name("group_footer")).sendKeys("test3");
+        driver.findElement(By.name("group_footer")).sendKeys(groupData.getGroupFooter());
     }
 
-    private void login() {
-        driver.findElement(By.name("user")).sendKeys("admin");
+    private void login(String username, String password) {
+        driver.findElement(By.name("user")).sendKeys(username);
         driver.findElement(By.name("pass")).click();
-        driver.findElement(By.name("pass")).sendKeys("secret");
+        driver.findElement(By.name("pass")).sendKeys(password);
         driver.findElement(By.cssSelector("input:nth-child(7)")).click();
     }
 }
