@@ -1,4 +1,4 @@
-package com.tech.dmitry_baev;
+package com.tech.dmitry_baev.model;
 
 public class ContactData {
     private final String name;
